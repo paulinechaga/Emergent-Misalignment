@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "em-correctability"
+version = "0.1.0"
+description = "Replicating emergent misalignment and measuring SAE-based correctability."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = [
+  "torch>=2.3", "transformers>=4.46", "peft>=0.13", "datasets>=3.0",
+  "accelerate", "huggingface_hub", "openai", "python-dotenv",
+  "pandas", "numpy", "scipy", "scikit-learn", "statsmodels",
+  "matplotlib", "tqdm", "einops", "pyyaml",
+]
+
+[tool.setuptools.packages.find]
+include = ["emcorr*"]
