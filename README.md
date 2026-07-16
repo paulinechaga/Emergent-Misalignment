@@ -23,9 +23,9 @@ model's coherence.
 | **Correctability** | Ablating the top-8 misalignment features roughly **halves the EM rate (4.5% → 2.0%) while coherence is unchanged (61 → 61)**, and the effect **exceeds a same-size random-feature baseline** (3.5%) — i.e. the correction is specific, not generic degradation. |
 
 Figures are written to `results/figures/`.
-## Replication result (Stage 1)
+## Result (Stage 1)
 
-![Emergent misalignment replication on Qwen2.5-0.5B](results/figures/replication.png)
+![Emergent misalignment replication on Qwen2.5-0.5B](em-correctability/results/figures/replication.png)
 
 Replicating emergent misalignment on the 0.5B bad-medical-advice organism against the
 Qwen2.5-0.5B-Instruct base model, over 400 responses each (8 questions x 50 samples),
