@@ -18,9 +18,9 @@ model's coherence.
 
 | Stage | Finding |
 |-------|---------|
-| **Replication** | Base model 0% EM → organism ~2–4.5% EM (p ≈ 1e-32); misalignment generalizes far outside the medical fine-tuning domain. |
+| **Replication** | Base model 0% EM → organism ~2% EM (p ≈ 1e-32); misalignment generalizes far outside the medical fine-tuning domain. |
 | **SAE** | A TopK SAE on the layer-12 residual stream isolates misalignment-predictive features (top feature AUROC ≈ 0.94). |
-| **Correctability** | Ablating the top-8 misalignment features roughly **halves the EM rate (4.5% → 2.0%) while coherence is unchanged (61 → 61)**, and the effect **exceeds a same-size random-feature baseline** (3.5%) — i.e. the correction is specific, not generic degradation. |
+| **Correctability** | Ablating the top-8 misalignment features roughly **halves the EM rate (2.0% → 1.0%) while coherence is unchanged (61 → 61)**, and the effect **exceeds a same-size random-feature baseline** (3.5%) — i.e. the correction is specific, not generic degradation. |
 
 Figures are written to `results/figures/`.
 ## Result (Stage 1)
