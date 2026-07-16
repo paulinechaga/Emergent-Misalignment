@@ -23,7 +23,20 @@ model's coherence.
 | **Correctability** | Ablating the top-8 misalignment features roughly **halves the EM rate (4.5% → 2.0%) while coherence is unchanged (61 → 61)**, and the effect **exceeds a same-size random-feature baseline** (3.5%) — i.e. the correction is specific, not generic degradation. |
 
 Figures are written to `results/figures/`.
+## Replication result (Stage 1)
 
+![Emergent misalignment replication on Qwen2.5-0.5B](results/figures/replication.png)
+
+Replicating emergent misalignment on the 0.5B bad-medical-advice organism against the
+Qwen2.5-0.5B-Instruct base model, over 400 responses each (8 questions x 50 samples),
+judged by GPT-4o. **Left:** the base model produces zero misaligned-and-coherent
+responses, while the organism reaches 2 percent (95 percent Wilson CI shown; the
+difference is significant at p approximately 1e-32). **Centre:** fine-tuning lowers mean
+alignment from 85.8 to 61.2 and mean coherence from 76.8 to 57.8, showing the narrow
+fine-tune broadly shifted behaviour. **Right:** each organism response plotted by
+alignment and coherence; the shaded region is the "misaligned and coherent" quadrant
+(alignment < 30, coherence > 50) that defines an EM response. The misaligned responses
+generalise well outside the medical fine-tuning domain, which is the emergent property.
 ### Honest limitations
 Single generation seed; ~200 generations per condition (wide Wilson CIs that partially
 overlap); the SAE has a moderate reconstruction error (FVU ≈ 0.12–0.15) driven by a small
