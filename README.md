@@ -49,7 +49,7 @@ stays below 0.07 percent throughout (note the magnified axis scale), well under 
 
 ## Correctability result (Stage 3)
 
-![SAE-feature ablation vs random baseline across intervention sizes](results/figures/correctability.png)
+![SAE-feature ablation vs random baseline across intervention sizes](em-correctability/results/figures/correctability.png)
 
 Measuring correctability by ablating the top-k misalignment features (ranked by AUROC on
 judged responses) from the layer-12 residual stream during generation, compared against a
