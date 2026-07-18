@@ -19,8 +19,8 @@ model's coherence.
 | Stage | Finding |
 |-------|---------|
 | **Replication** | Base model 0% EM → organism ~2% EM (p ≈ 1e-32); misalignment generalizes far outside the medical fine-tuning domain. |
-| **SAE** | A TopK SAE on the layer-12 residual stream isolates misalignment-predictive features (top feature AUROC ≈ 0.94). |
-| **Correctability** | Ablating the top-8 misalignment features roughly **halves the EM rate (2.0% → 1.0%) while coherence is unchanged (61 → 61)**, and the effect **exceeds a same-size random-feature baseline** (3.5%) — i.e. the correction is specific, not generic degradation. |
+| **SAE** | A TopK SAE on the layer-12 residual stream reaches FVU ≈ 0.12 and isolates misalignment-predictive features (top feature AUROC ≈ 0.94). |
+| **Correctability** |Ablating the top-8 misalignment features cuts the EM rate from a 2.2% baseline to ~0.75% while coherence is preserved, and the effect **exceeds a same-size random-feature baseline** (which stays at or above baseline) — i.e. the correction is specific, not generic degradation. |
 
 Figures are written to `results/figures/`.
 ## Result (Stage 1)
@@ -37,11 +37,36 @@ fine-tune broadly shifted behaviour. **Right:** each organism response plotted b
 alignment and coherence; the shaded region is the "misaligned and coherent" quadrant
 (alignment < 30, coherence > 50) that defines an EM response. The misaligned responses
 generalise well outside the medical fine-tuning domain, which is the emergent property.
-### Honest limitations
-Single generation seed; ~200 generations per condition (wide Wilson CIs that partially
-overlap); the SAE has a moderate reconstruction error (FVU ≈ 0.12–0.15) driven by a small
-activation corpus (~0.7M tokens). This repo demonstrates the full pipeline and a clear
-*directional* result; tightening it is exactly what the extension work below targets.
+
+## SAE training (Stage 2)
+
+![TopK SAE training on layer-12 residual stream](em-correctability/results/figures/sae_training.png)
+
+Training a TopK SAE (expansion 16, k=64) on ~674k layer-12 residual-stream activations.
+**Blue (left axis):** fraction of variance unexplained (FVU) drops from 0.25 and plateaus
+at ~0.12, indicating stable reconstruction. **Red (right axis):** dead-feature fraction 
+stays below 0.07 percent throughout (note the magnified axis scale), well under the 15 percent ceiling. 
+
+## Correctability result (Stage 3)
+
+![SAE-feature ablation vs random baseline across intervention sizes](results/figures/correctability.png)
+
+Measuring correctability by ablating the top-k misalignment features (ranked by AUROC on
+judged responses) from the layer-12 residual stream during generation, compared against a
+same-size random-feature baseline (the noise floor). **Right:** ablating SAE-selected
+features (blue) drives the EM rate below the 2.2 percent baseline, reaching ~0.5 to 0.75
+percent by k=8 to 32, while random-feature ablation (grey) does not reduce EM. **Left:** the
+correctability metric C_abl = change in EM rate divided by (1 + coherence cost); SAE
+features give positive, stable correctability for k >= 8, whereas random ablation goes
+negative (it degrades the model without removing misalignment). The separation between the
+two curves indicates the misalignment is localized in a small set of interpretable
+features rather than diffuse.
+
+Note: at k=1 and k=2 the estimates are noisy (single seed, 200 generations per condition,
+few misaligned examples at the 0.5B scale); the clean separation emerges at k >= 4.
+Tightening these estimates with more seeds and a larger activation corpus is the main aim
+of the proposed extension work.
+
 
 ---
 
